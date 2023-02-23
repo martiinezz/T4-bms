@@ -279,7 +279,7 @@ void loadSettings()
 
 CAN_message_t msg;
 CAN_message_t inMsg;
-CAN_filter_t filter;
+// CAN_filter_t filter;
 
 uint32_t lastUpdate;
 
@@ -318,20 +318,20 @@ void setup()
   Can0.begin();
   Can0.setBaudRate(500000);
 
-  //set filters for standard
-  for (int i = 0; i < 8; i++)
-  {
-    //Can0.getFilter(filter, i);
-    filter.flags.extended = 0;
-    Can0.setFilter(filter, i);
-  }
-  //set filters for extended
-  for (int i = 9; i < 13; i++)
-  {
-    //Can0.getFilter(filter, i);
-    filter.flags.extended = 1;
-    Can0.setFilter(filter, i);
-  }
+  // set filters for standard
+  // for (int i = 0; i < 8; i++)
+  // {
+    // Can0.getFilter(filter, i);
+    // filter.flags.extended = 0;
+    // Can0.setMBFilter(filter, i);
+  // }
+  // set filters for extended
+  // for (int i = 9; i < 13; i++)
+  // {
+    // Can0.getFilter(filter, i);
+    // filter.flags.extended = 1;
+    // Can0.setMBFilter(filter, i);
+  // }
 
   //if using enable pins on a transceiver they need to be set on
 
@@ -350,37 +350,37 @@ void setup()
   Serial2.begin(115200);
 
   // Display reason the Teensy was last reset
-  Serial.println();
-  Serial.println("Reason for last Reset: ");
+  // Serial.println();
+  // Serial.println("Reason for last Reset: ");
 
-  if (RCM_SRS1 & RCM_SRS1_SACKERR)   Serial.println("Stop Mode Acknowledge Error Reset");
-  if (RCM_SRS1 & RCM_SRS1_MDM_AP)    Serial.println("MDM-AP Reset");
-  if (RCM_SRS1 & RCM_SRS1_SW)        Serial.println("Software Reset");                   // reboot with SCB_AIRCR = 0x05FA0004
-  if (RCM_SRS1 & RCM_SRS1_LOCKUP)    Serial.println("Core Lockup Event Reset");
-  if (RCM_SRS0 & RCM_SRS0_POR)       Serial.println("Power-on Reset");                   // removed / applied power
-  if (RCM_SRS0 & RCM_SRS0_PIN)       Serial.println("External Pin Reset");               // Reboot with software download
-  if (RCM_SRS0 & RCM_SRS0_WDOG)      Serial.println("Watchdog(COP) Reset");              // WDT timed out
-  if (RCM_SRS0 & RCM_SRS0_LOC)       Serial.println("Loss of External Clock Reset");
-  if (RCM_SRS0 & RCM_SRS0_LOL)       Serial.println("Loss of Lock in PLL Reset");
-  if (RCM_SRS0 & RCM_SRS0_LVD)       Serial.println("Low-voltage Detect Reset");
-  Serial.println();
-  ///////////////////
+  // if (RCM_SRS1 & RCM_SRS1_SACKERR)   Serial.println("Stop Mode Acknowledge Error Reset");
+  // if (RCM_SRS1 & RCM_SRS1_MDM_AP)    Serial.println("MDM-AP Reset");
+  // if (RCM_SRS1 & RCM_SRS1_SW)        Serial.println("Software Reset");                   // reboot with SCB_AIRCR = 0x05FA0004
+  // if (RCM_SRS1 & RCM_SRS1_LOCKUP)    Serial.println("Core Lockup Event Reset");
+  // if (RCM_SRS0 & RCM_SRS0_POR)       Serial.println("Power-on Reset");                   // removed / applied power
+  // if (RCM_SRS0 & RCM_SRS0_PIN)       Serial.println("External Pin Reset");               // Reboot with software download
+  // if (RCM_SRS0 & RCM_SRS0_WDOG)      Serial.println("Watchdog(COP) Reset");              // WDT timed out
+  // if (RCM_SRS0 & RCM_SRS0_LOC)       Serial.println("Loss of External Clock Reset");
+  // if (RCM_SRS0 & RCM_SRS0_LOL)       Serial.println("Loss of Lock in PLL Reset");
+  // if (RCM_SRS0 & RCM_SRS0_LVD)       Serial.println("Low-voltage Detect Reset");
+  // Serial.println();
+  /////////////////
 
 
   // enable WDT
-  noInterrupts();                                         // don't allow interrupts while setting up WDOG
-  WDOG_UNLOCK = WDOG_UNLOCK_SEQ1;                         // unlock access to WDOG registers
-  WDOG_UNLOCK = WDOG_UNLOCK_SEQ2;
-  delayMicroseconds(1);                                   // Need to wait a bit..
+  // noInterrupts();                                         // don't allow interrupts while setting up WDOG
+  // WDOG_UNLOCK = WDOG_UNLOCK_SEQ1;                         // unlock access to WDOG registers
+  // WDOG_UNLOCK = WDOG_UNLOCK_SEQ2;
+  // delayMicroseconds(1);                                   // Need to wait a bit..
 
-  WDOG_TOVALH = 0x1000;
-  WDOG_TOVALL = 0x0000;
-  WDOG_PRESC  = 0;
-  WDOG_STCTRLH |= WDOG_STCTRLH_ALLOWUPDATE |
-                  WDOG_STCTRLH_WDOGEN | WDOG_STCTRLH_WAITEN |
-                  WDOG_STCTRLH_STOPEN | WDOG_STCTRLH_CLKSRC;
-  interrupts();
-  /////////////////
+  // WDOG_TOVALH = 0x1000;
+  // WDOG_TOVALL = 0x0000;
+  // WDOG_PRESC  = 0;
+  // WDOG_STCTRLH |= WDOG_STCTRLH_ALLOWUPDATE |
+                  // WDOG_STCTRLH_WDOGEN | WDOG_STCTRLH_WAITEN |
+                  // WDOG_STCTRLH_STOPEN | WDOG_STCTRLH_CLKSRC;
+  // interrupts();
+  ///////////////
   SERIALBMS.begin(115200);
   //SERIALBMS.begin(612500); //Tesla serial bus
   //VE.begin(19200); //Victron VE direct bus
@@ -442,19 +442,19 @@ void setup()
   //RISING/HIGH/CHANGE/LOW/FALLING
   attachInterrupt (IN4, isrCP , CHANGE); // attach BUTTON 1 interrupt handler [ pin# 7 ]
 
-  PMC_LVDSC1 =  PMC_LVDSC1_LVDV(1);  // enable hi v
-  PMC_LVDSC2 = PMC_LVDSC2_LVWIE | PMC_LVDSC2_LVWV(3); // 2.92-3.08v
-  NVIC_ENABLE_IRQ(IRQ_LOW_VOLTAGE);
+  // PMC_LVDSC1 =  PMC_LVDSC1_LVDV(1);  // enable hi v
+  // PMC_LVDSC2 = PMC_LVDSC2_LVWIE | PMC_LVDSC2_LVWV(3); // 2.92-3.08v
+  // NVIC_ENABLE_IRQ(IRQ_LOW_VOLTAGE);
 
   cleartime = millis();
 }
 
 void loop()
 {
-  while (Can0.available())
-  {
+  // while (Can0.onReceive())
+  // {
     canread();
-  }
+  // }
 
   if (SERIALCONSOLE.available() > 0)
   {
@@ -3167,10 +3167,10 @@ void canread()
     }
     if (settings.curcan == 4)
     {
-      if (pgnFromCANId(inMsg.id) == 0x1F214 && inMsg.buf[0] == 0) // Check PGN and only use the first packet of each sequence
-      {
-        handleVictronLynx();
-      }
+      // if (pgnFromCANId(inMsg.id) == 0x1F214 && inMsg.buf[0] == 0) // Check PGN and only use the first packet of each sequence
+      // {
+        // handleVictronLynx();
+      // }
     }
   }
 
@@ -3682,10 +3682,10 @@ void sendbalancingtest()
 
 void resetwdog()
 {
-  noInterrupts();                                     //   No - reset WDT
-  WDOG_REFRESH = 0xA602;
-  WDOG_REFRESH = 0xB480;
-  interrupts();
+  // noInterrupts();                                     //   No - reset WDT
+  // WDOG_REFRESH = 0xA602;
+  // WDOG_REFRESH = 0xB480;
+  // interrupts();
 }
 
 void pwmcomms()
@@ -4106,10 +4106,10 @@ void isrCP ()
   }
 }  // ******** end of isr CP ********
 
-void low_voltage_isr(void) {
-  EEPROM.update(1000, uint8_t(SOC));
+// void low_voltage_isr(void) {
+  // EEPROM.update(1000, uint8_t(SOC));
 
-  PMC_LVDSC2 |= PMC_LVDSC2_LVWACK;  // clear if we can
-  PMC_LVDSC1 |= PMC_LVDSC1_LVDACK;
-}
+  // PMC_LVDSC2 |= PMC_LVDSC2_LVWACK;  // clear if we can
+  // PMC_LVDSC1 |= PMC_LVDSC1_LVDACK;
+// }
 ////////END///////////
