@@ -283,7 +283,6 @@ CAN_filter_t filter;
 
 uint32_t lastUpdate;
 
-
 void setup()
 {
   delay(4000);  //just for easy debugging. It takes a few seconds for USB to come up properly on most OS's
@@ -3527,7 +3526,7 @@ void sendbalancingtest()
   {
     msg.id  = 0x1A555418;
     msg.len = 8;
-    msg.ext = 1;
+    msg.flags.extended = 1;
     msg.buf[0] = 0xFE;
     msg.buf[1] = 0xFE;
     msg.buf[2] = 0xFE;
@@ -3559,7 +3558,7 @@ void sendbalancingtest()
     {
       msg.id  = 0x1A555418;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x08;
       msg.buf[1] = 0x00;
       msg.buf[2] = 0x00;
@@ -3572,7 +3571,7 @@ void sendbalancingtest()
       delay(1);
       msg.id  = 0x1A555419;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x00;
       msg.buf[2] = 0x00;
@@ -3586,7 +3585,7 @@ void sendbalancingtest()
 
       msg.id  = 0x1A555416;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x08;
       msg.buf[2] = 0x00;
@@ -3599,7 +3598,7 @@ void sendbalancingtest()
       delay(1);
       msg.id  = 0x1A555417;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x08;
       msg.buf[2] = 0x00;
@@ -3615,7 +3614,7 @@ void sendbalancingtest()
     {
       msg.id  = 0x1A555418;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x00;
       msg.buf[2] = 0x00;
@@ -3628,7 +3627,7 @@ void sendbalancingtest()
       delay(1);
       msg.id  = 0x1A555419;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x00;
       msg.buf[2] = 0x00;
@@ -3642,7 +3641,7 @@ void sendbalancingtest()
 
       msg.id  = 0x1A555416;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x00;
       msg.buf[2] = 0x00;
@@ -3655,7 +3654,7 @@ void sendbalancingtest()
       delay(1);
       msg.id  = 0x1A555417;
       msg.len = 8;
-      msg.ext = 1;
+      msg.flags.extended = 1;
       msg.buf[0] = 0x00;
       msg.buf[1] = 0x00;
       msg.buf[2] = 0x00;
@@ -3678,7 +3677,7 @@ void sendbalancingtest()
     balcycle = 0;
   }
 
-  msg.ext = 0;
+  msg.flags.extended = 0;
 }
 
 void resetwdog()
@@ -3937,7 +3936,7 @@ void chargercomms()
   {
     msg.id  =  0x1806E5F4; //broadcast to all Elteks
     msg.len = 8;
-    msg.ext = 1;
+    msg.flags.extended = 1;
     msg.buf[0] = highByte(uint16_t(settings.ChargeVsetpoint * settings.Scells * 10));
     msg.buf[1] = lowByte(uint16_t(settings.ChargeVsetpoint * settings.Scells * 10));
     msg.buf[2] = highByte(chargecurrent / ncharger);
@@ -3948,7 +3947,7 @@ void chargercomms()
     msg.buf[7] = 0x00;
 
     Can0.write(msg);
-    msg.ext = 0;
+    msg.flags.extended = 0;
   }
 
   if (settings.chargertype == Eltek)

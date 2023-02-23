@@ -6,8 +6,6 @@
 extern EEPROMSettings settings;
 CAN_message_t OUTmsg;
 
-FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> Can0;
-
 BMSModuleManager::BMSModuleManager()
 {
   for (int i = 1; i <= MAX_MODULE_ADDR; i++) {
