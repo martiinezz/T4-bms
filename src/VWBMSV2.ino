@@ -25,7 +25,7 @@
 #include "Logger.h"
 #include <ADC.h> //https://github.com/pedvide/ADC
 #include <EEPROM.h>
-#include <FlexCAN.h> //https://github.com/collin80/FlexCAN_Library
+#include <FlexCAN_T4.h> //https://github.com/collin80/FlexCAN_Library
 #include <SPI.h>
 #include <Filters.h> //https://github.com/JonHub/Filters
 #include "BMSUtil.h"
@@ -35,6 +35,9 @@
 BMSModuleManager bms;
 SerialConsole console;
 EEPROMSettings settings;
+
+FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> Can0;
+FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> Can1;
 
 
 /////Version Identifier/////////
