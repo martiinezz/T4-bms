@@ -18,6 +18,8 @@
   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+#include "main.h"
 #include "BMSModuleManager.h"
 #include <Arduino.h>
 #include "config.h"
@@ -314,7 +316,8 @@ void setup()
   analogWriteFrequency(OUT7, pwmfreq);
   analogWriteFrequency(OUT8, pwmfreq);
 
-  Can0.begin(500000);
+  Can0.begin();
+  Can0.setBaudRate(500000);
 
   //set filters for standard
   for (int i = 0; i < 8; i++)
