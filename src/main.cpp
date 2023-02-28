@@ -31,12 +31,16 @@
 #include <SPI.h>
 #include <Filters.h> //https://github.com/JonHub/Filters
 #include "BMSUtil.h"
+#include "Watchdog_t4.h"
+
 
 #define CPU_REBOOT (_reboot_Teensyduino_());
 
 BMSModuleManager bms;
 SerialConsole console;
 EEPROMSettings settings;
+
+WDT_T4<WDT1> wdt;
 
 FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> Can0;
 FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> Can1;
@@ -345,7 +349,7 @@ void setup()
 
   SERIALCONSOLE.begin(115200);
   SERIALCONSOLE.println("Starting up!");
-  SERIALCONSOLE.println("SimpBMS V2 VW");
+  SERIALCONSOLE.println("T4-BMS");
 
   Serial2.begin(115200);
 
@@ -366,21 +370,13 @@ void setup()
   // Serial.println();
   /////////////////
 
-
   // enable WDT
-  // noInterrupts();                                         // don't allow interrupts while setting up WDOG
-  // WDOG_UNLOCK = WDOG_UNLOCK_SEQ1;                         // unlock access to WDOG registers
-  // WDOG_UNLOCK = WDOG_UNLOCK_SEQ2;
-  // delayMicroseconds(1);                                   // Need to wait a bit..
-
-  // WDOG_TOVALH = 0x1000;
-  // WDOG_TOVALL = 0x0000;
-  // WDOG_PRESC  = 0;
-  // WDOG_STCTRLH |= WDOG_STCTRLH_ALLOWUPDATE |
-                  // WDOG_STCTRLH_WDOGEN | WDOG_STCTRLH_WAITEN |
-                  // WDOG_STCTRLH_STOPEN | WDOG_STCTRLH_CLKSRC;
-  // interrupts();
+  WDT_timings_t config;
+  config.trigger = 5; /* in seconds, 0->128 */
+  config.timeout = 10; /* in seconds, 0->128 */
+  wdt.begin(config);
   ///////////////
+  
   SERIALBMS.begin(115200);
   //SERIALBMS.begin(612500); //Tesla serial bus
   //VE.begin(19200); //Victron VE direct bus
