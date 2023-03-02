@@ -966,8 +966,8 @@ void loop()
     {
       bmsstatus = Boot;
     }
-
-    resetwdog();
+    // feed the watchdog here:
+    wdt.feed();
   }
 
   if (millis() - cleartime > 20000)
@@ -3674,14 +3674,6 @@ void sendbalancingtest()
   }
 
   msg.flags.extended = 0;
-}
-
-void resetwdog()
-{
-  // noInterrupts();                                     //   No - reset WDT
-  // WDOG_REFRESH = 0xA602;
-  // WDOG_REFRESH = 0xB480;
-  // interrupts();
 }
 
 void pwmcomms()
