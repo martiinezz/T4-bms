@@ -370,12 +370,14 @@ void setup()
   // Serial.println();
   /////////////////
 
-  // enable WDT
+  // enable WatchDog
+
   WDT_timings_t config;
-  config.trigger = 5; /* in seconds, 0->128 */
-  config.timeout = 10; /* in seconds, 0->128 */
+  config.trigger = 2; /* in seconds, 0->128 */
+  config.timeout = 5; /* in seconds, 0->128 */
   wdt.begin(config);
-  ///////////////
+  
+  //
   
   SERIALBMS.begin(115200);
   //SERIALBMS.begin(612500); //Tesla serial bus
