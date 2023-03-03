@@ -47,7 +47,7 @@ FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> Can1;
 
 
 /////Version Identifier/////////
-int firmver = 221026;
+int firmver = 230303;
 
 //Curent filter//
 float filterFrequency = 5.0 ;
@@ -65,8 +65,8 @@ const int OUT1 = 11;// output 1 - high active
 const int OUT2 = 12;// output 1 - high active
 const int OUT3 = 20;// output 1 - high active
 const int OUT4 = 21;// output 1 - high active
-const int OUT5 = 22;// output 1 - high active
-const int OUT6 = 23;// output 1 - high active
+const int OUT5 = 5; // 22;// output 1 - high active - those are used as CAN0
+const int OUT6 = 5; // 23;// output 1 - high active - those are used as CAN0
 const int OUT7 = 5;// output 1 - high active
 const int OUT8 = 6;// output 1 - high active
 const int led = 13;
@@ -374,7 +374,7 @@ void setup()
 
   WDT_timings_t config;
   config.trigger = 2; /* in seconds, 0->128 */
-  config.timeout = 5; /* in seconds, 0->128 */
+  config.timeout = 4; /* in seconds, 0->128 */
   wdt.begin(config);
   
   //
