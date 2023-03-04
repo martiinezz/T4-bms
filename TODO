@@ -1,3 +1,2 @@
-Compiles OK
-No Watchdog
-No CAN filters and some other stuff missing
+No CAN filters so far (not sure if needed)
+Watchdog works as expected.
