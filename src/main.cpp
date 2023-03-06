@@ -65,8 +65,8 @@ const int OUT1 = 99;// output 1 - high active
 const int OUT2 = 99;// output 1 - high active
 const int OUT3 = 99;// output 1 - high active
 const int OUT4 = 99;// output 1 - high active
-const int OUT5 = 20; // output 1 - high active - those are used as CAN0
-const int OUT6 = 21; // output 1 - high active - those are used as CAN0
+const int OUT5 = 20; // output 1 - high active
+const int OUT6 = 21; // output 1 - high active
 const int OUT7 = 6;// output 1 - high active
 const int OUT8 = 5;// output 1 - high active
 const int led = 13;
@@ -355,23 +355,10 @@ void setup()
 
   // Display reason the Teensy was last reset
   // Serial.println();
-  // Serial.println("Reason for last Reset: ");
 
-  // if (RCM_SRS1 & RCM_SRS1_SACKERR)   Serial.println("Stop Mode Acknowledge Error Reset");
-  // if (RCM_SRS1 & RCM_SRS1_MDM_AP)    Serial.println("MDM-AP Reset");
-  // if (RCM_SRS1 & RCM_SRS1_SW)        Serial.println("Software Reset");                   // reboot with SCB_AIRCR = 0x05FA0004
-  // if (RCM_SRS1 & RCM_SRS1_LOCKUP)    Serial.println("Core Lockup Event Reset");
-  // if (RCM_SRS0 & RCM_SRS0_POR)       Serial.println("Power-on Reset");                   // removed / applied power
-  // if (RCM_SRS0 & RCM_SRS0_PIN)       Serial.println("External Pin Reset");               // Reboot with software download
-  // if (RCM_SRS0 & RCM_SRS0_WDOG)      Serial.println("Watchdog(COP) Reset");              // WDT timed out
-  // if (RCM_SRS0 & RCM_SRS0_LOC)       Serial.println("Loss of External Clock Reset");
-  // if (RCM_SRS0 & RCM_SRS0_LOL)       Serial.println("Loss of Lock in PLL Reset");
-  // if (RCM_SRS0 & RCM_SRS0_LVD)       Serial.println("Low-voltage Detect Reset");
-  // Serial.println();
-  /////////////////
 
   // enable WatchDog
-
+  
   WDT_timings_t config;
   config.trigger = 2; /* in seconds, 0->128 */
   config.timeout = 4; /* in seconds, 0->128 */
