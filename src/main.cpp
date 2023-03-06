@@ -27,11 +27,11 @@
 #include "Logger.h"
 #include <ADC.h> //https://github.com/pedvide/ADC
 #include <EEPROM.h>
-#include <FlexCAN_T4.h> //https://github.com/collin80/FlexCAN_Library
+#include <FlexCAN_T4.h> // look for lib on github
 #include <SPI.h>
 #include <Filters.h> //https://github.com/JonHub/Filters
 #include "BMSUtil.h"
-#include "Watchdog_t4.h"
+#include "Watchdog_t4.h" // look for lib on github
 
 
 #define CPU_REBOOT (_reboot_Teensyduino_());
